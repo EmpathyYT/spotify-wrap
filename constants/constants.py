@@ -1,1 +1,6 @@
 target = "Data/my_spotify_data/Spotify Account Data"
+artist_listen_time = "artist_listen_time"
+artist_song_count = "artist_song_count"
+date_listen_time = "date_listen_time"
+total_listen_time = "total_listen_time"
+song_listen_time = "song_listen_time"
