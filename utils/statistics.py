@@ -1,3 +1,4 @@
+import math
 import os
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -6,13 +7,14 @@ from pandas import DataFrame
 from constants.constants import *
 
 
-class StatisticsGenerator():
-    def __init__(self, year):
+class StatisticsGenerator:
+    def __init__(self, year, gen=True):
         self.data_folder = 'generated'
         self.year = year
         self.stat_folder = "statistics"
         os.makedirs(self.stat_folder, exist_ok=True)
-        self.gen_stats()
+        if gen:
+            self.gen_stats()
 
     def gen_stats(self):
         self.gen_top_artists_graph()
@@ -31,7 +33,7 @@ class StatisticsGenerator():
         fig, ax = plt.subplots(figsize=(15, 8), facecolor='black')
         ax.set_facecolor('black')
         plt.tight_layout(pad=2)
-        bars = plt.bar(top_artists['artist'], top_artists['mins_played'], color='#444444')
+        bars = plt.bar(top_artists['artist'], top_artists['mins_played'].astype(int), color='#444444')
 
         plt.xlabel('Artist Name', color='white')
         plt.ylabel('Minutes Played', color='white')
@@ -56,7 +58,7 @@ class StatisticsGenerator():
         fig, ax = plt.subplots(figsize=(15, 8), facecolor='black')
         ax.set_facecolor('black')
         plt.tight_layout()
-        bars = plt.bar(top_songs['song'], top_songs['mins_played'], color='#444444')
+        bars = plt.bar(top_songs['song'], top_songs['mins_played'].astype(int), color='#444444')
 
         plt.xlabel('Song Name', color='white')
         plt.ylabel('Minutes Played', color='white')
@@ -65,7 +67,7 @@ class StatisticsGenerator():
         self.graph_indicator(bars)
         for spine in ax.spines.values():
             spine.set_edgecolor('white')
-        plt.savefig(os.path.join(self.stat_folder, f"{self.year}_top_songs.png"), bbox_inches='tight',
+        plt.savefig(os.path.join(self.stat_folder, f"{self.year}_{song_listen_time}.png"), bbox_inches='tight',
                     facecolor='black')
         plt.close()
 
@@ -86,7 +88,7 @@ class StatisticsGenerator():
         fig, ax = plt.subplots(figsize=(15, 8), facecolor='black')
         ax.set_facecolor('black')
         plt.tight_layout()
-        bars = plt.bar(top_songs['artist'], top_songs['song_count'], color='#444444')
+        bars = plt.bar(top_songs['artist'], top_songs['song_count'].astype(int), color='#444444')
 
         plt.xlabel('Artist Name', color='white')
         plt.ylabel('Songs Played', color='white')
@@ -109,7 +111,7 @@ class StatisticsGenerator():
         fig, ax = plt.subplots(figsize=(15, 8), facecolor='black')
         ax.set_facecolor('black')
         plt.tight_layout()
-        bars = plt.bar(top_songs['date'], top_songs['mins_played'], color='#444444')
+        bars = plt.bar(top_songs['date'], top_songs['mins_played'].astype(int), color='#444444')
 
         plt.xlabel('Date', color='white')
         plt.ylabel('Minutes Played', color='white')

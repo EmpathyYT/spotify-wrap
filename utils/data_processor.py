@@ -1,4 +1,5 @@
 import csv
+import math
 import os
 from constants.constants import *
 import pandas as pd
@@ -51,7 +52,6 @@ class DataProcessor:
                 with open(os.path.join(self.gen_folder, f"{date}_{key}.csv"), mode='w', newline='',
                           errors="replace") as file:
                     df = DataFrame(self.data.get(date).get(key).items(), columns=self.columns[index])
-                    df = df.round(0)
                     df.to_csv(file, index=False, encoding="utf-8")
 
     def runner(self):
@@ -64,7 +64,7 @@ class DataProcessor:
 
     @staticmethod
     def field_collecting(row, column, collection, value=None):
-
+        value = math.floor(value) if value is not None else None
         if row[column] not in collection:
             collection[row[column]] = value if value is not None else 1
         else:
