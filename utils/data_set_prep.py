@@ -7,9 +7,11 @@ from constants.constants import *
 
 class DataPrep:
     def __init__(self) -> None:
-        self.data_gen_folder = "generated"
+        self.data_gen_folder = "dataset"
         self.data_keys_shape = {"endTime", "artistName", "trackName", "msPlayed"}
         self.data = {}
+
+        os.makedirs(self.data_gen_folder, exist_ok=True)
         self.data_prep(target)
 
     def data_prep(self, path) -> None:
